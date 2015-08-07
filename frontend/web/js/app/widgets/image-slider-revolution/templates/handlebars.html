@@ -1,0 +1,124 @@
+<div class="grid-row bleed">
+    <div class="col-12">
+        <div class="hero parbase homepageHero">
+            <div class="c_007 hero-carousel">
+                <div class="carousel">
+                    <div class="tp-banner-container">
+                        <div class="tp-banner">
+                            <ul>
+                                {{#each items}}
+                                <!-- SLIDE  -->
+                                <li data-transition="{{Flat_Transitions}}" data-slotamount="7" data-masterspeed="1500" data-easing="Power4.easeOut">
+                                    <!-- MAIN IMAGE -->
+                                    <img src="{{img_src}}" alt="slidebg1" data-bgfit="cover"
+                                         data-bgposition="center bottom" data-bgrepeat="no-repeat">
+									
+									<span class="slider-data" data-slider-default="{{img_src}}"
+                                          data-slider-small="{{img_src_mob}}"></span>
+                                    <!-- сюда записывать url картинки для мобильных девайсов -->
+                                    <!-- LAYERS -->
+                                    <!-- LAYER NR. 1 -->
+                                    <div class="tp-caption lightgrey_divider {{inc}} {{out}}"
+                                         data-x="85"
+                                         data-y="60"
+                                         data-speed="500"
+                                         data-start="500"
+
+                                        data-easing="Power4.easeOut">
+
+                                        <!--{{{title}}}-->
+
+                                        <div class="slider__body">
+
+                                            <div class="slider__head">
+                                                <h2>{{{header-1}}}</h2>
+
+                                                <p>{{{header-2}}}</p>
+                                            </div>
+                                            <!--.slider__head-->
+
+                                            <div class="cf"></div>
+
+                                            <div class="slider__txt">
+                                                {{{header-3}}}
+                                            </div>
+                                            <!--.slider__txt-->
+
+                                            <ul class="actions">
+                                                {{#if button-1}}
+                                                {{#if urlButton-1}}
+                                                <li><a href="{{urlButton-1}}" class="orange-submit orange-submit-arr">{{button-1}}</a>
+                                                </li>
+                                                {{/if}}
+                                                {{/if}}
+                                                {{#if button-2}}
+                                                {{#if urlButton-2}}
+                                                <li><a href="{{urlButton-2}}" class="black-submit black-submit-arr">{{button-2}}</a>
+                                                </li>
+                                                {{/if}}
+                                                {{/if}}
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(setTimeout(function () {
+        var slider_index_api = $('.tp-banner').revolution({
+            delay: 9000,
+            startwidth: 1170,
+            startheight: 500,
+            hideThumbs: 10,
+            fullWidth: 'on',
+            autoHeight: 'on',
+            minHeight: 560
+        });
+
+        var width_slider = [jQuery(window).width(), jQuery(window).width(), 'slider-default'];
+
+        function SliderResize() {
+            width_slider[1] = width_slider[0];
+            width_slider[0] = jQuery(window).width();
+            if (/*width_slider[0]<width_slider[1]&&*/width_slider[0] < 940) {
+                width_slider[2] = 'slider-small';
+                jQuery('.tp-revslider-slidesli').each(function () {
+                    jQuery(this).find('.tp-bgimg').attr('src', jQuery(this).find('.slider-data').data('slider-small'));
+                    jQuery(this).find('.tp-bgimg').css({'background-image': 'url(' + jQuery(this).find('.slider-data').data('slider-small') + ')'});
+                });
+            }
+            else if (/*width_slider[0]>width_slider[1]&&*/width_slider[0] >= 940) {
+                width_slider[2] = 'slider-default';
+                jQuery('.tp-revslider-slidesli').each(function () {
+                    jQuery(this).find('.tp-bgimg').attr('src', jQuery(this).find('.slider-data').data('slider-default'));
+                    jQuery(this).find('.tp-bgimg').css({'background-image': 'url(' + jQuery(this).find('.slider-data').data('slider-default') + ')'});
+                });
+            }
+
+            slider_index_api.find('.slotholder').each(function (index, el) {
+                //console.log($('.tp-revslider-slidesli:eq('+index+')').find('.slider-data').data(width_slider[2]))
+                var obj = jQuery(this).find('.tp-bgimg');
+                obj.attr('src', $('.tp-revslider-slidesli:eq(' + index + ')').find('.slider-data').data(width_slider[2]));
+                obj.data('src', $('.tp-revslider-slidesli:eq(' + index + ')').find('.slider-data').data(width_slider[2]));
+                obj.css({'background-image': 'url(' + $('.tp-revslider-slidesli:eq(' + index + ')').find('.slider-data').data(width_slider[2]) + ')'});
+            });
+        }
+
+        SliderResize();
+
+        jQuery(window).resize(function () {
+            SliderResize();
+        });
+    }), 10000);
+</script>
