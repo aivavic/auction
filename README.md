@@ -1,6 +1,6 @@
-# Renault
-Site for Renault dialers.
+# Auction
+Site for Auction.
 
-@author Eugene Fabrikov efabrikov@gmail.com
+@author 
 
 Install details in README-ORIGIN.md
